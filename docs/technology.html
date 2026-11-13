@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技術解説 | 俳句地鶏 〜オンデバイスAIと古典韻律の融合アーキテクチャ〜</title>
+    <meta name="description" content="俳句地鶏の技術解説。Apple Intelligence、単語意味分類、定型詩に整える接続詞NN、ローカルLLM蒸留、古典コーパス学習、そして本歌取りアルゴリズムによるオンデバイス俳句生成パイプラインの全貌。">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/appicon.png">
+</head>
+<body>
+    <!-- ヘッダーナビゲーション -->
+    <header class="header-nav">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="images/appicon.png" alt="俳句地鶏 アイコン" class="brand-icon">
+                <span class="brand-name">俳句地鶏</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">ホーム</a>
+                <a href="index.html#features">特徴</a>
+                <a href="index.html#gallery">画面紹介</a>
+                <a href="technology.html" class="active" style="color: var(--accent-gold-light); font-weight: 700;">技術解説</a>
+                <a href="privacy.html">プライバシーポリシー</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="tech-container">
+        <!-- ヒーローヘッダー -->
+        <section class="tech-hero">
+            <span class="section-tag">ARCHITECTURE & TECHNOLOGY</span>
+            <h1>俳句地鶏の技術思想とアーキテクチャ</h1>
+            <p class="tech-lead">
+                クラウドの大規模言語モデル（LLM）による自由生成では、五七五のモーラ律や季語の制約が破綻しやすく、プライバシーや通信遅延の課題も伴います。<br>
+                「俳句地鶏」は、Apple Intelligenceと独自オンデバイス深層学習をハイブリッドに統合。<br>
+                <strong>意味の通る格調高い五七五を、完全端末内でミリ秒単位で紡ぎ出す</strong>次世代の定型詩生成パイプラインを確立しました。
+            </p>
+        </section>
+
+        <!-- 全体パイプライン・フローチャート -->
+        <section class="pipeline-section">
+            <div class="section-heading" style="margin-bottom: 1rem;">
+                <span class="section-tag">PIPELINE FLOWCHART</span>
+                <h2 class="section-title">全体生成パイプライン</h2>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 2rem;">
+                自撮り・情景の撮影から、単語の分散配置、ニューラルネットワークによる助詞充填、そして縦書き短冊の生成に至る一連の処理フローです。
+            </p>
+
+            <div class="pipeline-flow">
+                <!-- Step 1 -->
+                <div class="flow-step">
+                    <div class="step-badge-col">
+                        <span class="step-num">01</span>
+                    </div>
+                    <div class="step-content">
+                        <h3>
+                            写像認識・情景抽出
+                            <span class="step-tag blue">Apple Intelligence</span>
+                            <span class="step-tag">Vision & CoreML</span>
+                        </h3>
+                        <p class="step-desc">
+                            イン／アウトカメラで捉えた写像（写真）から、被写体、人物の表情、背景の自然、光と色彩の情景をリアルタイムに解析。俳句の起点となるシード単語群（名詞・情景）をオンデバイスで抽出します。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step-arrow">▼</div>
+
+                <!-- Step 2 -->
+                <div class="flow-step">
+                    <div class="step-badge-col">
+                        <span class="step-num">02</span>
+                    </div>
+                    <div class="step-content">
+                        <h3>
+                            単語の意味分類 & モーラ厳格制御
+                            <span class="step-tag gold">fastText</span>
+                            <span class="step-tag">UniDic形態素解析</span>
+                        </h3>
+                        <p class="step-desc">
+                            抽出語を特徴ベクトル空間に写像し、品詞細分類と意味カテゴリを特定。俳句のリズムを壊さないよう<strong>「7モーラ以内」の単語のみを厳選</strong>し、意味の近い単語の重複衝突（例：「ホトトギス」と「ウグイス」の共存など）を判定モデルで抑止します。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step-arrow">▼</div>
+
+                <!-- Step 3 -->
+                <div class="flow-step">
+                    <div class="step-badge-col">
+                        <span class="step-num">03</span>
+                    </div>
+                    <div class="step-content">
+                        <h3>
+                            季語の選定 & 生成パスの決定
+                            <span class="step-tag gold">四季の歳時記DB</span>
+                            <span class="step-tag">確率的本歌取り判定</span>
+                        </h3>
+                        <p class="step-desc">
+                            撮影日の暦や情景に共鳴する季語をデータベースから調合。ここで一定の確率により、古典・近代名句の骨格をオマージュする<strong>「大規模本歌取りモード」</strong>への分岐が行われます。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step-arrow">▼</div>
+
+                <!-- Step 4 -->
+                <div class="flow-step">
+                    <div class="step-badge-col">
+                        <span class="step-num">04</span>
+                    </div>
+                    <div class="step-content">
+                        <h3>
+                            五七五スロットへの単語分散配置
+                            <span class="step-tag">Mora Constrained Layout</span>
+                        </h3>
+                        <p class="step-desc">
+                            季語と写像キーワードを「上五・中七・下五」のモーラ枠に戦略的に分散配置。名詞を機械的に連続させず、自然な日本語のリズムを生み出すために<strong>助詞や活用語尾のための「1〜3モーラの空白（スロット）」</strong>をあらかじめ設計します。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step-arrow">▼</div>
+
+                <!-- Step 5 -->
+                <div class="flow-step">
+                    <div class="step-badge-col">
+                        <span class="step-num">05</span>
+                    </div>
+                    <div class="step-content">
+                        <h3>
+                            接続詞NNによる隙間充填
+                            <span class="step-tag gold">専用深層学習NN</span>
+                            <span class="step-tag">&lt; 1ms 超高速推論</span>
+                        </h3>
+                        <p class="step-desc">
+                            分散配置された単語と単語の間（G型スロット）や語尾（T型スロット）の空白を、コーパス学習済みの専用ニューラルネットワークが一括推論。文脈に最も調和する接続語・助詞（「に」「が」「の」「は」）や活用語尾（「けり」「かな」等の切れ字制約）を充填し、流麗な定型詩を完成させます。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step-arrow">▼</div>
+
+                <!-- Step 6 -->
+                <div class="flow-step">
+                    <div class="step-badge-col">
+                        <span class="step-num">06</span>
+                    </div>
+                    <div class="step-content">
+                        <h3>
+                            感情NN採点 & 和モダン短冊生成
+                            <span class="step-tag blue">蒸留GRU感情モデル</span>
+                            <span class="step-tag">和風UIレンダリング</span>
+                        </h3>
+                        <p class="step-desc">
+                            完成した句候補に対し、7つの情緒（憂い・驚き・畏れ・静けさ・喜び・郷愁・悲しみ）を軽量NNでリアルタイムスコアリング。情緒スケールに合わせた和モダンな縦書き短冊を画面上に美しく描画します。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 特徴的技術 6大機能の深掘り -->
+        <div class="section-heading">
+            <span class="section-tag">CORE TECHNOLOGIES</span>
+            <h2 class="section-title">6つの特徴的技術</h2>
+        </div>
+
+        <div class="tech-grid">
+            <!-- 1. 単語の意味分類 -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <div class="tech-icon-box">言</div>
+                    <h2>単語の意味分類とモーラ厳格制御</h2>
+                </div>
+                <p>
+                    写真から抽出された被写体ラベルは、単に文字列として扱うのではなく、fastText高次元空間へ射影されてセマンティック（意味的）に分類されます。
+                </p>
+                <p>
+                    さらに、句のリズム破綻を防ぐため、<strong>音数（モーラ数）を厳格に計算し「7モーラ以内」の語のみに制限</strong>。また、同じジャンルの名詞同士（例：「雲」と「霧」、「鶯」と「時鳥」）が同時に1句へ入ることをディシジョンモデルで防止し、引き締まった語彙構成を実現しています。
+                </p>
+                <ul class="tech-detail-list">
+                    <li>UniDic旧仮名・現代語形態素解析による正確な音数同定</li>
+                    <li>fastText特徴ベクトルによる同義語・近傍語のクラスタリング</li>
+                    <li>ジャンル×意味衝突判定による語彙の厳格なスクリーニング</li>
+                </ul>
+            </div>
+
+            <!-- 2. 既存俳句からの学習 -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <div class="tech-icon-box">典</div>
+                    <h2>既存俳句・名句コーパスからの学習</h2>
+                </div>
+                <p>
+                    俳句の品格は、単なる文法規則だけでは生まれません。現代俳句データベースや古典名句、青空文庫の文学コーパスから、季語と内容語、動詞と情景の「共起統計（コロケーション）」を大規模に抽出・学習しています。
+                </p>
+                <p>
+                    これにより、機械的なランダム生成とは一線を画し、「月」に対してどのような動詞が選ばれ、「春風」にどのような感情が寄り添うかという、日本の美意識の統計的パターンが句に反映されます。
+                </p>
+                <ul class="tech-detail-list">
+                    <li>数万句の実作俳句データベースからの共起パターンマイニング</li>
+                    <li>文学的文脈を担保する品詞ペア・係り受け頻度統計</li>
+                    <li>青空文庫コーパスを活用した自然な助詞・語尾接続の網羅</li>
+                </ul>
+            </div>
+
+            <!-- 3. 接続詞NN -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <div class="tech-icon-box">結</div>
+                    <h2>単語を分散させて整える「接続詞NN」</h2>
+                </div>
+                <p>
+                    AI俳句の最大の発明が、この<strong>「隙間充填ニューラルネットワーク（Gap Filling NN）」</strong>です。名詞をただ並べるのではなく、五七五のリズムの中に1・2・3文字（モーラ）の空白を意図的に配します。
+                </p>
+                <p>
+                    この空白に対し、左の語の品詞・活用形と右の語の品詞から、最も適切な助詞（て・に・を・は等）や活用語尾、助動詞を一括推論（1回あたり1ms以下）。切れ字（や・かな・けり）の配置ルールと相まって、驚くほど流暢で詩情豊かな定型詩へと整えられます。
+                </p>
+                <ul class="tech-detail-list">
+                    <li>空白長（1・2・3モーラ）ごとに特化した高精度分類モデル</li>
+                    <li>探索コスト（ビームサーチ等）を排除した確定型超高速フォワードパス</li>
+                    <li>切れ字の二重使用を防止するルールベース制約との融合</li>
+                </ul>
+            </div>
+
+            <!-- 4. ローカルLLMの利用と蒸留 -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <div class="tech-icon-box">蒸</div>
+                    <h2>ローカルLLMの活用と知能の蒸留</h2>
+                </div>
+                <p>
+                    アプリ実行時にギガバイト級のLLMを常駐させると、発熱やメモリ圧迫、バッテリー消費が問題となります。「俳句地鶏」では、教師役として高機能ローカルLLMを活用し、オフライン環境で膨大な句の感情採点や判定を実行。
+                </p>
+                <p>
+                    その知能を、iPhoneのNPU/GPUで<strong>0.1ミリ秒で動作する軽量GRU生徒モデル（学生モデル）へと蒸留（Distillation）</strong>。巨大モデルの審美眼を保ちながら、完全オンデバイスでの超高速レスポンスを実現しました。
+                </p>
+                <ul class="tech-detail-list">
+                    <li>教師モデルによる7大感情（静けさ・憂い・喜び等）のオフライン採点</li>
+                    <li>語順と否定表現を捉える小型GRUネットワークへの知識蒸留</li>
+                    <li>常駐メモリわずか数MB、バッテリーに優しいエッジ推論アーキテクチャ</li>
+                </ul>
+            </div>
+
+            <!-- 5. Apple Intelligenceの利用 -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <div class="tech-icon-box"></div>
+                    <h2>Apple Intelligence（Vision & NLP）の統合</h2>
+                </div>
+                <p>
+                    iOSの基盤フレームワークである<strong>Apple Vision</strong>と<strong>Apple Natural Language</strong>、CoreMLを有機的に統合しています。
+                </p>
+                <p>
+                    カメラ入力されたフレームから、人物の顔立ちや表情、被写体、周囲の環境をハードウェアアクセラレータを通じて瞬時に検出。多言語翻訳や形態素解析もすべてデバイスローカルのApple Neural Engineで処理されるため、一切のデータが外部サーバーへ送信されることはありません。
+                </p>
+                <ul class="tech-detail-list">
+                    <li>VNRecognizeObjectsRequest / CoreMLによるリアルタイム情景認識</li>
+                    <li>NaturalLanguage Frameworkによる高精度な日本語形態素分割</li>
+                    <li>プライバシーを完全保護するゼロ・ネットワーク通信アーキテクチャ</li>
+                </ul>
+            </div>
+
+            <!-- 6. 確率的に導入される本歌取り -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <div class="tech-icon-box">歌</div>
+                    <h2>確率的に織り交ぜられる「本歌取り」</h2>
+                </div>
+                <p>
+                    「本歌取り（ほんかどり）」とは、古今の名歌や名句の表現や着想を意識的に取り入れ、新たな情景を重ね合わせる日本古来の高度な和歌・俳諧技法です。
+                </p>
+                <p>
+                    本エンジンでは、実在する名句の季語や動詞・助詞の完璧な骨格を保ちつつ、<strong>同じ音数の名詞スロットに対して写像キーワードを確率的に代入・換装</strong>するアルゴリズムを実装。伝統的な名句の格調高さを損なうことなく、現代の自撮り写真と古典の調べが鮮やかに共鳴します。
+                </p>
+                <ul class="tech-detail-list">
+                    <li>実作名句のモーラ構造と共起動詞を維持した置換アルゴリズム</li>
+                    <li>音数（モーラ数）の一致と意味的親和性を両立する語彙フィルタ</li>
+                    <li>偶然性と芸術性が交差する、確率的インスピレーション機構</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 一般的なクラウドLLMとの比較表 -->
+        <section class="tech-table-section">
+            <span class="section-tag" style="display:block; text-align:center;">BENCHMARK & COMPARISON</span>
+            <h2>クラウドLLM自由生成との比較</h2>
+            <p style="text-align: center; color: var(--text-secondary); font-size: 0.95rem; max-width: 650px; margin: 0 auto;">
+                汎用的なチャットLLMに「俳句を作って」と指示した場合と、俳句地鶏の専用ハイブリッドエンジンの比較です。
+            </p>
+
+            <div class="table-wrapper">
+                <table class="tech-table">
+                    <thead>
+                        <tr>
+                            <th>比較項目</th>
+                            <th>一般的なクラウドLLM（ChatGPT等）</th>
+                            <th>俳句地鶏 ハイブリッドエンジン</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>五七五（モーラ律）遵守率</td>
+                            <td><span class="tech-badge-poor">不安定（字余り・字足らず頻発）</span></td>
+                            <td><span class="tech-badge-good">100% 厳格遵守（スロット制約）</span></td>
+                        </tr>
+                        <tr>
+                            <td>季語の正確性</td>
+                            <td><span class="tech-badge-poor">季節外れ・無季の混入あり</span></td>
+                            <td><span class="tech-badge-good">歳時記DBによる厳密照合</span></td>
+                        </tr>
+                        <tr>
+                            <td>生成速度（レイテンシ）</td>
+                            <td>数秒〜十数秒（ネットワーク待ち）</td>
+                            <td><span class="tech-badge-good">0.1秒未満〜数秒（即座に生成）</span></td>
+                        </tr>
+                        <tr>
+                            <td>プライバシー・安全性</td>
+                            <td>写真を外部クラウドサーバーへ送信</td>
+                            <td><span class="tech-badge-good">完全オンデバイス（外部送信ゼロ）</span></td>
+                        </tr>
+                        <tr>
+                            <td>オフライン動作</td>
+                            <td>不可（インターネット接続必須）</td>
+                            <td><span class="tech-badge-good">完全対応（機内・山頂でも詠める）</span></td>
+                        </tr>
+                        <tr>
+                            <td>伝統表現技法</td>
+                            <td>表層的な模倣にとどまる</td>
+                            <td><span class="tech-badge-good">本歌取り・切れ字制約を数理的に実装</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ボトムCTA -->
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="index.html" class="app-badge-btn" style="text-decoration: none; display: inline-block;">
+                <span>← 公式サイトトップへ戻る</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer>
+        <div class="nav-container" style="justify-content: center; flex-direction: column; gap: 1rem;">
+            <div class="footer-links">
+                <a href="index.html">トップ</a>
+                <a href="index.html#features">特徴</a>
+                <a href="index.html#gallery">画面紹介</a>
+                <a href="technology.html">技術解説</a>
+                <a href="privacy.html">プライバシーポリシー</a>
+            </div>
+            <p class="footer-cr">© 2026 俳句地鶏 (Haiku Jidori). All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

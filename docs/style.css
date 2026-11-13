@@ -344,3 +344,318 @@ footer a:hover {
     .hero-subtitle { font-size: 1.05rem; }
     .gallery-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ==========================================================================
+   技術解説 (Technology & Architecture) スタイル
+   ========================================================================== */
+
+.tech-container {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+}
+
+.tech-hero {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.tech-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.tech-hero .tech-lead {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 780px;
+    margin: 0 auto;
+    line-height: 1.9;
+}
+
+/* パイプライン フローチャート */
+.pipeline-section {
+    background: var(--bg-card);
+    border: 1px solid var(--bg-card-border);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    margin-bottom: 4rem;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+}
+
+.pipeline-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+}
+
+.pipeline-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    margin-top: 2rem;
+}
+
+.flow-step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    background: rgba(18, 22, 20, 0.7);
+    border: 1px solid rgba(200, 180, 140, 0.18);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    position: relative;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.flow-step:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-gold);
+}
+
+.step-badge-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(212, 175, 55, 0.15);
+    border: 1.5px solid var(--accent-gold);
+    border-radius: 50%;
+    color: var(--accent-gold-light);
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: var(--font-sans);
+}
+
+.step-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--accent-gold);
+    opacity: 0.6;
+    margin: -0.5rem 0;
+    font-size: 1.2rem;
+}
+
+.step-content h3 {
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.step-tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(201, 64, 46, 0.2);
+    border: 1px solid rgba(201, 64, 46, 0.4);
+    color: #fca89d;
+    border-radius: 20px;
+    font-family: var(--font-sans);
+    letter-spacing: 0.05em;
+}
+
+.step-tag.gold {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: rgba(212, 175, 55, 0.5);
+    color: var(--accent-gold-light);
+}
+
+.step-tag.blue {
+    background: rgba(60, 110, 170, 0.2);
+    border-color: rgba(60, 110, 170, 0.5);
+    color: #a8d0ff;
+}
+
+.step-desc {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* 特徴的技術 6大機能グリッド */
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.tech-card {
+    background: var(--bg-card);
+    border: 1px solid var(--bg-card-border);
+    border-radius: 14px;
+    padding: 2.25rem 2rem;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.tech-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(212, 175, 55, 0.45);
+}
+
+.tech-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.tech-icon-box {
+    width: 48px;
+    height: 48px;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+    flex-shrink: 0;
+}
+
+.tech-card h2 {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    letter-spacing: 0.05em;
+}
+
+.tech-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.85;
+    margin-bottom: 1rem;
+}
+
+.tech-detail-list {
+    list-style: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed rgba(200, 180, 140, 0.2);
+}
+
+.tech-detail-list li {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 0.4rem;
+    position: relative;
+    padding-left: 1.2rem;
+}
+
+.tech-detail-list li::before {
+    content: "❖";
+    position: absolute;
+    left: 0;
+    color: var(--accent-gold);
+    font-size: 0.75rem;
+}
+
+/* 比較テーブル */
+.tech-table-section {
+    background: var(--bg-card);
+    border: 1px solid var(--bg-card-border);
+    border-radius: 14px;
+    padding: 2.5rem 2rem;
+    margin-bottom: 4rem;
+}
+
+.tech-table-section h2 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    margin-top: 1.5rem;
+}
+
+.tech-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+}
+
+.tech-table th, .tech-table td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(200, 180, 140, 0.15);
+}
+
+.tech-table th {
+    background: rgba(20, 26, 22, 0.9);
+    color: var(--accent-gold-light);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.tech-table td:first-child {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.tech-table tr:hover td {
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.tech-badge-good {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(50, 160, 90, 0.2);
+    border: 1px solid rgba(50, 160, 90, 0.4);
+    color: #8be4aa;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.tech-badge-poor {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(201, 64, 46, 0.15);
+    border: 1px solid rgba(201, 64, 46, 0.3);
+    color: #f59e92;
+    border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+    .flow-step {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    .step-badge-col {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    .tech-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

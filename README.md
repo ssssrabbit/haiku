@@ -9,6 +9,7 @@ Apple Visionとオンデバイス自然言語AIが、あなたの自撮りや情
 ## 🌐 公式サイト & 公開情報
 
 - **公式サイト（GitHub Pages）**: [https://ssssrabbit.github.io/haiku/](https://ssssrabbit.github.io/haiku/)
+- **技術解説（AIアーキテクチャ）**: [https://ssssrabbit.github.io/haiku/technology.html](https://ssssrabbit.github.io/haiku/technology.html)
 - **プライバシーポリシー**: [https://ssssrabbit.github.io/haiku/privacy.html](https://ssssrabbit.github.io/haiku/privacy.html)
 
 ---
