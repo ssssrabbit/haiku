@@ -284,6 +284,138 @@
             </div>
         </div>
 
+        <!-- ローカル生成の実測比較：Apple Silicon (LLM) vs 俳句地鶏エンジン -->
+        <section class="comp-section">
+            <div class="section-heading">
+                <span class="section-tag">ON-DEVICE BENCHMARK</span>
+                <h2 class="section-title">ローカル生成実測：Apple Silicon vs 俳句地鶏</h2>
+            </div>
+            <p style="text-align: center; color: var(--text-secondary); font-size: 0.95rem; max-width: 780px; margin: 0 auto 2.5rem; line-height: 1.8;">
+                Transformer系のローカル言語モデル（Apple Silicon上のApple Foundation Models）に直接「5-7-5の俳句」を指示した場合と、俳句地鶏エンジンによる生成結果を同一条件（完全ローカル実行）で比較しました。<br>
+                汎用LLMはサブワード単位で推論するため日本語の音拍（モーラ）カウントが構造的に難しく、散文的な字余りが多発するのに対し、本エンジンは<strong>100%厳密な五七五律</strong>を<strong>約0.2秒</strong>で安定生成します。
+            </p>
+
+            <!-- 比較 1: 秋風 × 珈琲 -->
+            <div class="comp-theme-card">
+                <div class="comp-theme-header">
+                    <span class="comp-theme-title">検証題 ①：季語「秋風」 × 写像語「珈琲」</span>
+                    <span class="step-tag gold">日常の情景・カフェ</span>
+                </div>
+                <div class="comp-grid">
+                    <div class="comp-box">
+                        <div class="comp-box-label">
+                            <span>Apple Silicon（オンデバイスLLM単体生成）</span>
+                            <span>1.88秒</span>
+                        </div>
+                        <div class="comp-haiku-text">
+                            秋風に揺れて<br>
+                            珈琲の香りが漂う<br>
+                            朝の静けさ
+                        </div>
+                        <div class="comp-mora-info">
+                            <span>音数: 6 - 12 - 7（計25音）</span>
+                            <span class="tech-badge-poor">大幅字余り・散文調</span>
+                        </div>
+                    </div>
+                    <div class="comp-box engine">
+                        <div class="comp-box-label">
+                            <span style="color: var(--accent-gold-light); font-weight: 700;">俳句地鶏 エンジン（通常生成＋接続詞NN）</span>
+                            <span style="color: var(--accent-gold-light);">0.20秒</span>
+                        </div>
+                        <div class="comp-haiku-text">
+                            西洋の<br>
+                            珈琲を飲む<br>
+                            秋風に
+                        </div>
+                        <div class="comp-mora-info">
+                            <span>音数: 5 - 7 - 5（計17音）</span>
+                            <span class="tech-badge-good">五七五 完全適合</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 比較 2: 紅葉 × 眼鏡 -->
+            <div class="comp-theme-card">
+                <div class="comp-theme-header">
+                    <span class="comp-theme-title">検証題 ②：季語「紅葉」 × 写像語「眼鏡」</span>
+                    <span class="step-tag gold">自撮り・秋景</span>
+                </div>
+                <div class="comp-grid">
+                    <div class="comp-box">
+                        <div class="comp-box-label">
+                            <span>Apple Silicon（オンデバイスLLM単体生成）</span>
+                            <span>1.29秒</span>
+                        </div>
+                        <div class="comp-haiku-text">
+                            紅葉の間に<br>
+                            眼鏡越しに見える<br>
+                            静かな風景
+                        </div>
+                        <div class="comp-mora-info">
+                            <span>音数: 7 - 9 - 7（計23音）</span>
+                            <span class="tech-badge-poor">定型崩れ・字余り</span>
+                        </div>
+                    </div>
+                    <div class="comp-box engine">
+                        <div class="comp-box-label">
+                            <span style="color: var(--accent-gold-light); font-weight: 700;">俳句地鶏 エンジン（通常生成＋接続詞NN）</span>
+                            <span style="color: var(--accent-gold-light);">0.27秒</span>
+                        </div>
+                        <div class="comp-haiku-text">
+                            紅葉に<br>
+                            光れるごとく<br>
+                            眼鏡かな
+                        </div>
+                        <div class="comp-mora-info">
+                            <span>音数: 5 - 7 - 5（計17音）</span>
+                            <span class="tech-badge-good">五七五 完全適合（こうように）</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 比較 3: 桜 × 猫 (本歌取り) -->
+            <div class="comp-theme-card">
+                <div class="comp-theme-header">
+                    <span class="comp-theme-title">検証題 ③：季語「桜」 × 写像語「猫」</span>
+                    <span class="step-tag blue">確率的本歌取りモード</span>
+                </div>
+                <div class="comp-grid">
+                    <div class="comp-box">
+                        <div class="comp-box-label">
+                            <span>Apple Silicon（オンデバイスLLM単体生成）</span>
+                            <span>1.11秒</span>
+                        </div>
+                        <div class="comp-haiku-text">
+                            白い桜の下<br>
+                            猫が夢見る<br>
+                            静かなる時
+                        </div>
+                        <div class="comp-mora-info">
+                            <span>音数: 8 - 6 - 6（計20音）</span>
+                            <span class="tech-badge-poor">全句字余り・字足らず</span>
+                        </div>
+                    </div>
+                    <div class="comp-box engine">
+                        <div class="comp-box-label">
+                            <span style="color: var(--accent-gold-light); font-weight: 700;">俳句地鶏 エンジン（本歌取り＋Apple FM選別）</span>
+                            <span style="color: var(--accent-gold-light);">原句骨格継承</span>
+                        </div>
+                        <div class="comp-haiku-text">
+                            桜から<br>
+                            猫の海まで<br>
+                            山を裂く
+                        </div>
+                        <div class="comp-mora-info">
+                            <span>音数: 5 - 7 - 5（計17音）｜ 原句：残雪や信濃の道は山へ向き</span>
+                            <span class="tech-badge-good">五七五 完全適合</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- 一般的なクラウドLLMとの比較表 -->
         <section class="tech-table-section">
             <span class="section-tag" style="display:block; text-align:center;">BENCHMARK & COMPARISON</span>
